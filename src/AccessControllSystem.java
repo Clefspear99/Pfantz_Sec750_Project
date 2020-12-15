@@ -11,8 +11,11 @@ public class AccessControllSystem {
     public int login(Scanner scan){
 
         String username, pswd;
-        System.out.println("Please enter your username: ");
+        System.out.println("Please enter your username (or exit to shutdown): ");
         username=scan.nextLine();
+        if(username.equals("exit")){
+            scan.close();
+            System.exit(0);}
         System.out.print("Please enter your password: ");
         pswd=scan.nextLine();
 
@@ -60,7 +63,11 @@ public class AccessControllSystem {
     }
 
     public User getFromUserDatabaseByID(int userID) {
-        return userDatabase.get(userID);
+        for (User user:userDatabase){
+            if (user.getID()==userID)
+                return user;
+        }
+        return new User("null", "null");
     }
 
     public ArrayList getUserDatabase() {
